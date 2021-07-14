@@ -1,32 +1,46 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http'; 
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { ProfileComponent } from './profile/profile.component';
 import { GroupsModule } from './groups/groups.module';
 import { CompaniesModule } from './companies/companies.module';
 import { UsersModule } from './users/users.module';
 import { HeaderComponent } from './header/header.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+
+
+import { authInterceptorProviders } from './_helpers/auth.interceptor';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent
+    HeaderComponent,
+    LoginComponent,
+    RegisterComponent,
+    ProfileComponent
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-	HttpClientModule,
+    FormsModule,
+    HttpClientModule,
 	GroupsModule,
 	CompaniesModule,
 	UsersModule,
 	MDBBootstrapModule.forRoot()
   ],
-  providers: [],
+  providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+
+
