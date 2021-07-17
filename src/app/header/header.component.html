@@ -13,7 +13,7 @@
                 <a class="nav-link waves-light" mdbWavesEffect>Home<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link waves-light" mdbWavesEffect href="/Users">Gebruiker</a>
+                <a class="nav-link waves-light" mdbWavesEffect href="/profile">Gebruiker</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link waves-light" mdbWavesEffect href="/Groups">Groepen</a>
@@ -28,7 +28,7 @@
                 Basic dropdown<span class="caret"></span></a>
                 <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
                     <a class="dropdown-item waves-light" mdbWavesEffect href="#">Home</a>
-                    <a class="dropdown-item waves-light" mdbWavesEffect href="/Users">Gebruiker</a>
+                    <a class="dropdown-item waves-light" mdbWavesEffect href="/profile">Gebruiker</a>
                     <a class="dropdown-item waves-light" mdbWavesEffect href="/Groups">Groepen</a>
                     <div class="divider dropdown-divider"></div>
                     <a class="dropdown-item waves-light" mdbWavesEffect href="/Companies">Bedrijven</a>
@@ -44,6 +44,14 @@
                 <input class="form-control mr-sm-2" type="text" placeholder="Search">
             </div>
         </form>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+                <a class="nav-link waves-light" mdbWavesEffect href="/login">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link waves-light" mdbWavesEffect (click)="logout()">Logout</a>
+            </li>
+            </ul>
     </links>
     <!-- Collapsible content -->
 

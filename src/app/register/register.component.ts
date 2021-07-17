@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
 import { NgForm } from '@angular/forms';
+import { Role } from '../roles/models/role.model';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -10,7 +11,12 @@ export class RegisterComponent implements OnInit {
   form: any = {
     username: null,
     email: null,
-    password: null
+    password: null,
+    firstName: null,
+    lastName: null,
+    fotoURL: null,
+    functionCompany: null,
+    linkedInURL: null
   };
   isSuccessful = false;
   isSignUpFailed = false;
@@ -22,9 +28,9 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const { username, email, password } = this.form;
+    const { firstName, lastName, email, username, password, fotoURL, functionCompany, linkedInURL } = this.form;
 
-    this.authService.register(username, email, password).subscribe(
+    this.authService.register(firstName, lastName, email, username, password, fotoURL, functionCompany, linkedInURL, 1, null).subscribe(
       data => {
         console.log(data);
         this.isSuccessful = true;
