@@ -3,12 +3,14 @@ import { Routes, RouterModule } from '@angular/router';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
+import { CompaniesComponent } from './companies/companies.component';
 
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'profile', component: ProfileComponent }
+  { path: 'profile', component: ProfileComponent },
+  { path: 'company', component: CompaniesComponent }
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

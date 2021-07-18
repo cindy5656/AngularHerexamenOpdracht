@@ -9,7 +9,6 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ProfileComponent } from './profile/profile.component';
 import { GroupsModule } from './groups/groups.module';
-import { CompaniesModule } from './companies/companies.module';
 import { UsersModule } from './users/users.module';
 import { HeaderComponent } from './header/header.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
@@ -17,6 +16,7 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import { TokenStorageService } from './_services/token-storage.service';
+import { CompaniesComponent } from './companies/companies.component';
 
 
 @NgModule({
@@ -25,7 +25,8 @@ import { TokenStorageService } from './_services/token-storage.service';
     HeaderComponent,
     LoginComponent,
     RegisterComponent,
-    ProfileComponent
+    ProfileComponent,
+    CompaniesComponent
 
   ],
   imports: [
@@ -34,7 +35,6 @@ import { TokenStorageService } from './_services/token-storage.service';
     FormsModule,
     HttpClientModule,
 	GroupsModule,
-	CompaniesModule,
 	UsersModule,
 	MDBBootstrapModule.forRoot()
   ],
