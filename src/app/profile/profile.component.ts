@@ -26,7 +26,7 @@ export class ProfileComponent implements OnInit {
   errorMessage = '';
 
 
-  constructor(private token: TokenStorageService, private authService: AuthService) { }
+  constructor(private tokenStorage: TokenStorageService, private authService: AuthService) { }
   selectFile(event: any) {
 		if(!event.target.files[0] || event.target.files[0].length == 0) {
 			this.msg = 'You must select an image';
@@ -49,7 +49,7 @@ export class ProfileComponent implements OnInit {
 		}
 	}
   ngOnInit(): void {
-    this.currentUser = this.token.getUser();
+    this.currentUser = this.tokenStorage.getUser();
     this.form.firstName = this.currentUser.firstName;
     this.form.lastName = this.currentUser.lastName;
     this.form.username = this.currentUser.username;
@@ -64,7 +64,8 @@ export class ProfileComponent implements OnInit {
     const { firstName, lastName, email, username, password, fotoURL, functionCompany, linkedInURL } = this.form;
     this.authService.update(this.currentUser.userID, firstName, lastName, email, username, password, fotoURL, functionCompany, linkedInURL, 1).subscribe(
       data => {
-        console.log(data);
+        this.tokenStorage.saveToken(data.accessToken);
+        this.tokenStorage.saveUser(data);
         this.isSuccessful = true;
         this.isUpdateFailed = false;
       },
@@ -73,5 +74,9 @@ export class ProfileComponent implements OnInit {
         this.isUpdateFailed = true;
       }
     );
+    
+  }
+  reloadPage(): void {
+    window.location.reload();
   }
 }
