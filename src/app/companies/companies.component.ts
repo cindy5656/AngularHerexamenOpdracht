@@ -15,6 +15,11 @@ export class CompaniesComponent implements OnInit {
     location: null,
     companyManagerID: null
   };
+  companyID: any;
+  nameCompany: any;
+  description: any;
+  location: any;
+  companyManager: any;
   errorMessage: any;
   isSuccessful = false;
   isFoutGegaan = false;
@@ -30,6 +35,12 @@ export class CompaniesComponent implements OnInit {
     this.companyService.checkManager(this.currentUser.userID).subscribe(
       data => {
         this.isChecked = true;
+        var realData = JSON.parse(data);
+        this.nameCompany = realData["nameCompany"];
+        this.description = realData["description"];
+        this.location = realData["location"];
+        this.companyManager = this.currentUser.firstName;
+        this.companyID = realData["companyID"];
         this.reloadPage();
       },
       err => {

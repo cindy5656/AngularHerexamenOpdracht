@@ -17,6 +17,7 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import { TokenStorageService } from './_services/token-storage.service';
 import { CompaniesComponent } from './companies/companies.component';
+import { CompanyEditComponent } from './companies/company-edit/company-edit.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { CompaniesComponent } from './companies/companies.component';
     LoginComponent,
     RegisterComponent,
     ProfileComponent,
-    CompaniesComponent
+    CompaniesComponent,
+    CompanyEditComponent
 
   ],
   imports: [
