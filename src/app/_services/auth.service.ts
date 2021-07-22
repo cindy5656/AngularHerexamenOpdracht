@@ -38,7 +38,6 @@ export class AuthService {
   }
 
   update(userID: number, firstName: string, lastName: string, email: string, username: string, password: string, fotoURL: string, functionCompany: string, linkedInURL: string, roleID: number): Observable<any> {
-    console.log(AUTH_API + '/' + userID);
     return this.http.put(AUTH_API + '/' + userID, {
       userID,
       firstName,
