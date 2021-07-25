@@ -10,8 +10,8 @@ const API_URL = 'https://localhost:44348/api/User';
 export class UserService {
   constructor(private http: HttpClient) { }
 
-  getPublicContent(): Observable<any> {
-    return this.http.get(API_URL + 'all', { responseType: 'text' });
+  getUserByName(firstName, lastName): Observable<any> {
+    return this.http.get(API_URL + '/byName?firstName=' + firstName + '&lastName=' + lastName, { responseType: 'text' });
   }
 
   getUserBoard(): Observable<any> {

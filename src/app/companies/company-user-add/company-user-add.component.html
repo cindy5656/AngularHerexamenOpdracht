@@ -1,0 +1,82 @@
+<div class=form>
+    <div class="col-md-12">
+        <div class="card card-container">
+          <form
+            name="form"
+            (ngSubmit)="f.form.valid && onSubmit()"
+            #f="ngForm"
+            novalidate
+          >
+          
+            <div class="form-group">
+              <label for="firstName">Voornaam</label>
+              <input
+                type="text"
+                class="form-control"
+                name="firstName"
+                [(ngModel)]="form.firstName"
+                required
+                #firstName="ngModel"
+              />
+              <div class="alert-danger" *ngIf="firstName.errors && f.submitted">
+                <div *ngIf="firstName.errors.required">Voornaam is verplicht</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="lastName">Achternaam</label>
+              <input
+                type="text"
+                class="form-control"
+                name="lastName"
+                [(ngModel)]="form.lastName"
+                required
+                #lastName="ngModel"
+              />
+              <div class="alert-danger" *ngIf="lastName.errors && f.submitted">
+                <div *ngIf="lastName.errors.required">Achternaam is verplicht</div>
+              </div>
+            </div>
+            
+            
+            <div class="form-group">
+              <button class="btn btn-primary btn-block">Zoek werknemer</button>
+            </div>
+      
+            <div class="alert alert-warning" *ngIf="f.submitted && isFoutGegaan">
+              Er is iets fout gegaan!<br />{{ errorMessage }}
+            </div>
+          </form>
+      
+        </div>
+      </div>
+      </div>
+
+      <div *ngIf="this.isGevonden">
+        <div class="alert alert-success" *ngIf="isToegevoegd">
+            De werknemer is toegevoegd!
+          </div>
+        <br>
+        <br>
+        <div *ngIf="!isToegevoegd">
+          
+        <h2>De volgende medewerkers zijn gevonden</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Voornaam</th>
+                    <th>Achternaam</th>
+                    <th>Email</th>
+                    <th>Functie</th>
+                </tr>
+            </thead>
+        <tr *ngFor="let data of realData" (click)='onSelect(data["userID"])'>
+            <td>{{data["firstName"]}}</td>
+            <td>{{data["lastName"]}}</td>
+            <td>{{data["email"]}}</td>
+            <td>{{data["functionCompany"]}}</td>
+            <td><button >Voeg toe </button></td>
+            </tr>
+
+        </table>
+      </div>
+    </div>

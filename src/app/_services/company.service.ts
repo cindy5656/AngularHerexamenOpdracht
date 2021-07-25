@@ -45,6 +45,10 @@ export class CompanyService implements OnInit{
     }, httpOptions);
   }
 
+  AddUserToCompany(companyID: number, userID: number, roleID: number): Observable<any> {
+    return this.http.post(AUTH_API + '/User?companyID=' + companyID + '&userID=' + userID + '&roleID=' + roleID , {}, httpOptions);
+  }
+
   checkManager(companyManagerID: number): Observable<any> {
     return this.http.get(AUTH_API + '/User/' + companyManagerID, { responseType: 'text' });
   }

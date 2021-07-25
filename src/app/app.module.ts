@@ -19,6 +19,7 @@ import { TokenStorageService } from './_services/token-storage.service';
 import { CompaniesComponent } from './companies/companies.component';
 import { CompanyEditComponent } from './companies/company-edit/company-edit.component';
 import {NgxImageCompressService} from 'ngx-image-compress';
+import { CompanyUserAddComponent } from './companies/company-user-add/company-user-add.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import {NgxImageCompressService} from 'ngx-image-compress';
     RegisterComponent,
     ProfileComponent,
     CompaniesComponent,
-    CompanyEditComponent
+    CompanyEditComponent,
+    CompanyUserAddComponent
 
   ],
   imports: [
