@@ -47,7 +47,7 @@
     <div style="text-align:center">
       <label class="hoverable" for="fileInput">
       <div [innerHtml]='msg' *ngIf="msg" style="color: red;"></div>
-      <div><img [src]="url ? url : 'https://www.w3schools.com/howto/img_avatar.png'" height="300px"></div>
+      <div><img [src]="this.currentUser.fotoURL ? this.currentUser.fotoURL : 'https://www.w3schools.com/howto/img_avatar.png'" height="300px"></div>
       <div class="hover-text">Choose file</div>
     </label>
       <p>
@@ -112,16 +112,6 @@
           Password must be at least 6 characters
         </div>
       </div>
-    </div>
-    <div class="form-group">
-      <label for="fotoURL">Foto</label>
-      <input
-        type="text"
-        class="form-control"
-        name="fotoURL"
-        [(ngModel)]="form.fotoURL"
-        #lastName="ngModel"
-      />
     </div>
     <div class="form-group">
       <label for="linkedInURL">LinkedIN URL</label>

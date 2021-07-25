@@ -9,7 +9,6 @@ import { TokenStorageService } from '../_services/token-storage.service';
 })
 export class ProfileComponent implements OnInit {
   currentUser: any;
-  url: any; 
 	msg = "";
   form: any = {
     username: null,
@@ -17,7 +16,6 @@ export class ProfileComponent implements OnInit {
     password: null,
     firstName: null,
     lastName: null,
-    fotoURL: null,
     functionCompany: null,
     linkedInURL: null
   };
@@ -45,7 +43,7 @@ export class ProfileComponent implements OnInit {
 		
 		reader.onload = (_event) => {
 			this.msg = "";
-			this.url = reader.result; 
+			this.currentUser.fotoURL = reader.result; 
 		}
 	}
   ngOnInit(): void {
@@ -56,13 +54,12 @@ export class ProfileComponent implements OnInit {
     this.form.email = this.currentUser.email;
     this.form.linkedInURL = this.currentUser.linkedInURL;
     this.form.password = this.currentUser.password;
-    this.form.fotoURL = this.currentUser.fotoURL;
     this.form.functionCompany = this.currentUser.functionCompany;
   }
 
   onSubmit(): void {
-    const { firstName, lastName, email, username, password, fotoURL, functionCompany, linkedInURL } = this.form;
-    this.authService.update(this.currentUser.userID, firstName, lastName, email, username, password, fotoURL, functionCompany, linkedInURL, 1).subscribe(
+    const { firstName, lastName, email, username, password,  functionCompany, linkedInURL } = this.form;
+    this.authService.update(this.currentUser.userID, firstName, lastName, email, username, password, this.currentUser.fotoURL, functionCompany, linkedInURL, 1).subscribe(
       data => {
         this.tokenStorage.saveToken(data.accessToken);
         this.tokenStorage.saveUser(data);
