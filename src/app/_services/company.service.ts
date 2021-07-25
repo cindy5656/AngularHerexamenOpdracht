@@ -24,11 +24,23 @@ export class CompanyService implements OnInit{
   constructor(private http: HttpClient) { }
   ngOnInit(): void {
   }
-  create(nameCompany: string, description: string, location: string, companyManagerID: number): Observable<any> {
+  create(nameCompany: string, description: string, location: string, fotoURL: string, companyManagerID: number): Observable<any> {
     return this.http.post(AUTH_API , {
       nameCompany,
       description,
       location,
+      fotoURL,
+      companyManagerID
+    }, httpOptions);
+  }
+
+  update(companyID: number, nameCompany: string, description: string, location: string, fotoURL: string, companyManagerID: number): Observable<any> {
+    return this.http.put(AUTH_API + '/' + companyID, {
+      companyID,
+      nameCompany,
+      description,
+      location,
+      fotoURL,
       companyManagerID
     }, httpOptions);
   }

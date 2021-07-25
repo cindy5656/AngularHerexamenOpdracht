@@ -25,10 +25,33 @@ export class CompaniesComponent implements OnInit {
   isFoutGegaan = false;
   currentUser: any;
   isChecked: any;
+  fotoURL: any;
+  msg: string;
 
 
 
   constructor(private companyService: CompanyService, private token: TokenStorageService) { }
+  selectFile(event: any) {
+		if(!event.target.files[0] || event.target.files[0].length == 0) {
+			this.msg = 'You must select an image';
+			return;
+		}
+		
+		var mimeType = event.target.files[0].type;
+		
+		if (mimeType.match(/image\/*/) == null) {
+			this.msg = "Only images are supported";
+			return;
+		}
+		
+		var reader = new FileReader();
+		reader.readAsDataURL(event.target.files[0]);
+		
+		reader.onload = (_event) => {
+			this.msg = "";
+			this.currentUser.fotoURL = reader.result; 
+		}
+	}
 
   ngOnInit(): void {
     this.currentUser = this.token.getUser();
@@ -54,7 +77,7 @@ export class CompaniesComponent implements OnInit {
   onSubmit(): void {
     const { nameCompany, description, location } = this.form;
 
-    this.companyService.create(nameCompany, description, location, this.currentUser.userID).subscribe(
+    this.companyService.create(nameCompany, description, location, this.currentUser.userID, this.fotoURL).subscribe(
       data => {
         this.isSuccessful = true;
         this.reloadPage();

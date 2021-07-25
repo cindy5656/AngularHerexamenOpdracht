@@ -1,1 +1,77 @@
-<p>company-edit works!</p>
+<div class=form *ngIf="this.isChecked">
+    <div class="col-md-12">
+        <div class="card card-container">
+          <form
+            name="form"
+            (ngSubmit)="f.form.valid && onSubmit()"
+            #f="ngForm"
+            novalidate
+          >
+          
+            <div class="form-group">
+              <label for="nameCompany">Naam bedrijf</label>
+              <input
+                type="text"
+                class="form-control"
+                name="nameCompany"
+                [(ngModel)]="form.nameCompany"
+                required
+                #nameCompany="ngModel"
+              />
+              <div class="alert-danger" *ngIf="nameCompany.errors && f.submitted">
+                <div *ngIf="nameCompany.errors.required">Naam bedrijf is verplicht</div>
+              </div>
+            </div>
+            <div style="text-align:center">
+                <label class="hoverable" for="fileInput">
+                <div [innerHtml]='msg' *ngIf="msg" style="color: red;"></div>
+                <div><img [src]="this.fotoURL ? this.fotoURL : 'https://www.w3schools.com/howto/img_avatar.png'" height="300px"></div>
+                <div class="hover-text">Kies bestand</div>
+              </label>
+                <p>
+                  <input id="fileInput" type="file" (change)="selectFile($event)">
+          
+                </p>
+              </div>
+            <div class="form-group">
+              <label for="location">Locatie</label>
+              <input
+                type="text"
+                class="form-control"
+                name="location"
+                [(ngModel)]="form.location"
+                required
+                #location="ngModel"
+              />
+              <div class="alert-danger" *ngIf="location.errors && f.submitted">
+                <div *ngIf="location.errors.required">Locatie is verplicht</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="description">Omschrijving</label>
+              <input
+                type="text"
+                class="form-control"
+                name="description"
+                [(ngModel)]="form.description"
+                #description="ngModel"
+              />
+              <div class="alert-danger" *ngIf="description.errors && f.submitted">
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <button class="btn btn-primary btn-block">Wijzig bedrijf</button>
+            </div>
+      
+            <div class="alert alert-warning" *ngIf="f.submitted && isFoutGegaan">
+              Er is iets fout gegaan!<br />{{ errorMessage }}
+            </div>
+          </form>
+      
+          <div class="alert alert-success" *ngIf="isSuccessful">
+            Het bedrijf is succesvol gewijzigd!
+          </div>
+        </div>
+      </div>
+      </div>
