@@ -18,6 +18,7 @@ import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import { TokenStorageService } from './_services/token-storage.service';
 import { CompaniesComponent } from './companies/companies.component';
 import { CompanyEditComponent } from './companies/company-edit/company-edit.component';
+import {NgxImageCompressService} from 'ngx-image-compress';
 
 
 @NgModule({
@@ -40,7 +41,7 @@ import { CompanyEditComponent } from './companies/company-edit/company-edit.comp
 	UsersModule,
 	MDBBootstrapModule.forRoot()
   ],
-  providers: [authInterceptorProviders],
+  providers: [authInterceptorProviders, NgxImageCompressService],
   bootstrap: [AppComponent]
 })
 export class AppModule implements OnInit{

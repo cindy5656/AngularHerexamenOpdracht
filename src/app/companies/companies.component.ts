@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CompanyService } from '../_services/company.service';
 import { TokenStorageService } from '../_services/token-storage.service';
+import { NgxImageCompressService } from 'ngx-image-compress';
+
 
 
 @Component({
@@ -24,13 +26,15 @@ export class CompaniesComponent implements OnInit {
   isSuccessful = false;
   isFoutGegaan = false;
   currentUser: any;
-  isChecked: any;
+  isChecked = true;
   fotoURL: any;
   msg: string;
+  file: any;
+  localCompressedURl:any;
 
 
 
-  constructor(private companyService: CompanyService, private token: TokenStorageService) { }
+  constructor(private companyService: CompanyService, private token: TokenStorageService, private imageCompress: NgxImageCompressService) { }
   selectFile(event: any) {
 		if(!event.target.files[0] || event.target.files[0].length == 0) {
 			this.msg = 'You must select an image';
@@ -43,15 +47,40 @@ export class CompaniesComponent implements OnInit {
 			this.msg = "Only images are supported";
 			return;
 		}
-		
+		var  fileName : any;
+    this.file = event.target.files[0];
+    fileName = this.file['name'];
+
 		var reader = new FileReader();
 		reader.readAsDataURL(event.target.files[0]);
 		
 		reader.onload = (_event) => {
 			this.msg = "";
 			this.currentUser.fotoURL = reader.result; 
+      this.compressFile(this.fotoURL,fileName)
 		}
 	}
+  compressFile(image,fileName) {
+    var orientation = -1;
+    console.warn('Size in bytes is now:',  this.imageCompress.byteCount(image)/(1024*1024));
+    this.imageCompress.compressFile(image, orientation, 75, 75).then(
+    result => {
+    const imageName = fileName;// call method that creates a blob from dataUri
+    const imageBlob = this.dataURItoBlob(result.split(',')[1]);//imageFile created below is the new compressed file which can be send to API in form data
+    const imageFile = new File([result], imageName, { type: 'image/jpeg' });
+    this.localCompressedURl = result;
+    console.log(result);
+    console.warn('Size in bytes after compression:',  this.imageCompress.byteCount(result)/(1024*1024));
+    });
+  }
+  dataURItoBlob(dataURI) {
+    const byteString = window.atob(dataURI);
+    const arrayBuffer = new ArrayBuffer(byteString.length);
+    const int8Array = new Uint8Array(arrayBuffer);for (let i = 0; i < byteString.length; i++) {
+    int8Array[i] = byteString.charCodeAt(i);
+    }const blob = new Blob([int8Array], { type: 'image/jpeg' });
+    return blob;
+    }
 
   ngOnInit(): void {
     this.currentUser = this.token.getUser();
@@ -67,6 +96,7 @@ export class CompaniesComponent implements OnInit {
         this.reloadPage();
       },
       err => {
+        this.isChecked = false;
         this.isFoutGegaan = true;
         this.errorMessage = err.error.message;
       }
