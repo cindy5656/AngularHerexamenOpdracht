@@ -31,6 +31,12 @@ export class CompaniesComponent implements OnInit {
   msg: string;
   file: any;
   localCompressedURl:any;
+  isWerknemers: boolean;
+  firstName: any;
+  lastName: any;
+  echteData: any;
+  
+
 
 
 
@@ -82,7 +88,7 @@ export class CompaniesComponent implements OnInit {
     return blob;
     }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.currentUser = this.token.getUser();
     this.companyService.checkManager(this.currentUser.userID).subscribe(
       data => {
@@ -93,10 +99,24 @@ export class CompaniesComponent implements OnInit {
         this.location = realData["location"];
         this.companyManager = this.currentUser.firstName;
         this.companyID = realData["companyID"];
+        console.log(this.companyID);
         this.reloadPage();
       },
       err => {
         this.isChecked = false;
+        this.isFoutGegaan = true;
+        this.errorMessage = err.error.message;
+      }
+    );
+    const check = await this.companyService.checkManager(this.currentUser.userID).toPromise();
+
+    this.companyService.GetWerknemers(this.companyID).subscribe(
+      data => {
+        this.isWerknemers = true;
+        this.echteData = JSON.parse(data);
+      },
+      err => {
+        this.isWerknemers = false;
         this.isFoutGegaan = true;
         this.errorMessage = err.error.message;
       }

@@ -88,4 +88,26 @@
     <p>Manager: {{this.companyManager}}</p>
     <a href="/company/{{this.companyID}}" class="button btn-block">Klik hier om dit bedrijf te wijzigen {{this.companyID}}</a>
     <a href="/company/userAdd/{{this.companyID}}" class="button btn-block">Klik hier om dit personen toe te voegen aan dit bedrijf</a>
+    <div *ngIf="this.isWerknemers" class="text-center">
+      <h2>Werknemers</h2>
+      <div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Voornaam</th>
+              <th>Achternaam</th>
+              <th>Foto</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of this.echteData">
+              <td>{{data.firstName}}</td>
+              <td>{{data.lastName}}</td>
+              <td> <img [src]="data.fotoURL ? data.fotoURL : 'https://www.w3schools.com/howto/img_avatar.png'" height="100px">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>

@@ -52,4 +52,7 @@ export class CompanyService implements OnInit{
   checkManager(companyManagerID: number): Observable<any> {
     return this.http.get(AUTH_API + '/User/' + companyManagerID, { responseType: 'text' });
   }
+  GetWerknemers(companyID: number): Observable<any> {
+    return this.http.get(AUTH_API + '/Werknemers/' + companyID, {responseType : "text"});
+  }
 }
