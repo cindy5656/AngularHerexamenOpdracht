@@ -55,4 +55,7 @@ export class CompanyService implements OnInit{
   GetWerknemers(companyID: number): Observable<any> {
     return this.http.get(AUTH_API + '/Werknemers/' + companyID, {responseType : "text"});
   }
+  GetGroepen(companyID: number): Observable<any> {
+    return this.http.get(AUTH_API + '/Groepen/' + companyID, {responseType : "text"});
+  }
 }

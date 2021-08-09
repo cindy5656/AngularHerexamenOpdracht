@@ -6,6 +6,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { CompaniesComponent } from './companies/companies.component';
 import { CompanyEditComponent } from './companies/company-edit/company-edit.component';
 import { CompanyUserAddComponent } from './companies/company-user-add/company-user-add.component';
+import { GroupsComponent } from './groups/groups.component';
 
 
 const routes: Routes = [
@@ -14,7 +15,9 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent },
   { path: 'company', component: CompaniesComponent },
   { path: 'company/:id', component: CompanyEditComponent },
-  { path: 'company/userAdd/:id', component: CompanyUserAddComponent }
+  { path: 'company/userAdd/:id', component: CompanyUserAddComponent },  
+  { path: 'group/:id', component: GroupsComponent },
+  { path: 'group/userAdd/:id', component: GroupsComponent }
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

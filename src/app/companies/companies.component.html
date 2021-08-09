@@ -110,4 +110,28 @@
         </table>
       </div>
     </div>
+
+    <div *ngIf="this.isGroepen" class="text-center">
+      <h2>Groepen</h2>
+      <div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Naam</th>
+              <th>Foto</th>
+              <th>Ga naar de groep</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of this.echteData">
+              <td>{{data.name}}</td>
+              <td> <img [src]="data.fotoURL ? data.fotoURL : 'https://www.w3schools.com/howto/img_avatar.png'" height="100px">
+              </td>
+              <td>    <a href="/group/{{data.groupID}}" class="button btn-block">Klik hier om naar deze groep te gaan {{data.groupID}}</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>

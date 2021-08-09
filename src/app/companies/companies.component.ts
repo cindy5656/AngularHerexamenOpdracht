@@ -35,6 +35,7 @@ export class CompaniesComponent implements OnInit {
   firstName: any;
   lastName: any;
   echteData: any;
+  isGroepen: boolean;
   
 
 
@@ -109,6 +110,9 @@ export class CompaniesComponent implements OnInit {
       }
     );
     const check = await this.companyService.checkManager(this.currentUser.userID).toPromise();
+    let checkJSON = JSON.parse(check);
+    this.companyID = checkJSON["companyID"];
+
 
     this.companyService.GetWerknemers(this.companyID).subscribe(
       data => {
@@ -117,6 +121,18 @@ export class CompaniesComponent implements OnInit {
       },
       err => {
         this.isWerknemers = false;
+        this.isFoutGegaan = true;
+        this.errorMessage = err.error.message;
+      }
+    );
+
+    this.companyService.GetGroepen(this.companyID).subscribe(
+      data => {
+        this.isGroepen = true;
+        this.echteData = JSON.parse(data);
+      },
+      err => {
+        this.isGroepen = false;
         this.isFoutGegaan = true;
         this.errorMessage = err.error.message;
       }
