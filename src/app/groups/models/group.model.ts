@@ -1,20 +1,14 @@
 import { User } from '../../users/models/user.model'; 
 
 export class Group {
-	GroupID: number;
-	Name: string;
-	FotoURL: string;
-	Theme: string;
-	GroupManagerID: number;
-	GroupManager: User;
-	GroupUsers: User;
-	 constructor(GroupID: number, Name: string, FotoURL: string, Theme: string, GroupManagerID: number, GroupManager: User, GroupUsers: User){
-		this.GroupID = GroupID;
-		this.Name = Name;
-		this.FotoURL = FotoURL;
-		this.Theme = Theme;
-		this.GroupManagerID = GroupManagerID;
-		this.GroupManager = GroupManager;
-		this.GroupUsers = GroupUsers;
+	groupID: number;
+	nameGroup: string;
+	fotoURL: string;
+	theme: string;
+	 constructor(groupID: number, nameGroup: string, fotoURL: string, theme: string){
+		this.groupID = groupID;
+		this.nameGroup = nameGroup;
+		this.fotoURL = fotoURL;
+		this.theme = theme;
 		} 
 }

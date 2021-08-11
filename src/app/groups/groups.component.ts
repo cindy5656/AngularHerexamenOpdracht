@@ -20,17 +20,17 @@ import { Group } from './models/group.model';
 		
 }
 	 	addGroup() {
-			let groupToAdd = new Group(0, 'Enzo', null, null, 1, null, null);
-			this._groupService.addGroup(groupToAdd).subscribe();
+			//let groupToAdd = new Group(0, 'Enzo', null, null, 1, null, null);
+			//this._groupService.addGroup(groupToAdd).subscribe();
 		}
 		updateGroup() {
-						let groupToUpdate = new Group(1, 'Enzo', 'iets', null, 1, null, null);
-			this._groupService.updateGroup(6, groupToUpdate).subscribe();
+			//			let groupToUpdate = new Group(1, 'Enzo', 'iets', null, 1, null, null);
+			//this._groupService.updateGroup(6, groupToUpdate).subscribe();
 
 		}
 		
 		 deleteGroup() {
-			this._groupService.deleteGroup(6).subscribe();
+			//this._groupService.deleteGroup(6).subscribe();
 			} 
 
 

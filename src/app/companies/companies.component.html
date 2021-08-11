@@ -87,7 +87,7 @@
     <p>Locatie: {{this.location}}</p>
     <p>Manager: {{this.companyManager}}</p>
     <a href="/company/{{this.companyID}}" class="button btn-block">Klik hier om dit bedrijf te wijzigen {{this.companyID}}</a>
-    <a href="/company/userAdd/{{this.companyID}}" class="button btn-block">Klik hier om dit personen toe te voegen aan dit bedrijf</a>
+    <a href="/company/userAdd/{{this.companyID}}" class="button btn-block">Klik hier om personen toe te voegen aan dit bedrijf</a>
     <div *ngIf="this.isWerknemers" class="text-center">
       <h2>Werknemers</h2>
       <div>
@@ -123,15 +123,19 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let data of this.echteData">
-              <td>{{data.name}}</td>
-              <td> <img [src]="data.fotoURL ? data.fotoURL : 'https://www.w3schools.com/howto/img_avatar.png'" height="100px">
+            <tr *ngFor="let dataGroep of this.echteDataGroep">
+              <td>{{dataGroep.nameGroup}}</td>
+              <td> <img [src]="dataGroep.fotoURL ? dataGroep.fotoURL : 'https://www.w3schools.com/howto/img_avatar.png'" height="100px">
               </td>
-              <td>    <a href="/group/{{data.groupID}}" class="button btn-block">Klik hier om naar deze groep te gaan {{data.groupID}}</a>
+              <td>    <a href="/group/{{dataGroep.groupID}}" class="button btn-block">Klik hier om naar deze groep te gaan {{dataGroep.groupID}}</a>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
+
+    <p>
+      <a href="/group/add/{{this.companyID}}" class="button btn-block">Klik hier om groepen toe te voegen aan dit bedrijf</a>
+    </p>
   </div>

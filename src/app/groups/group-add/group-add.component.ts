@@ -1,48 +1,41 @@
 import { Component, OnInit } from '@angular/core';
-import { CompanyService } from '../_services/company.service';
-import { TokenStorageService } from '../_services/token-storage.service';
 import { NgxImageCompressService } from 'ngx-image-compress';
-
-
+import { CompanyService } from 'src/app/_services/company.service';
+import { TokenStorageService } from 'src/app/_services/token-storage.service';
+import { GroupService } from '../group.service';
+import { Group } from '../models/group.model';
 
 @Component({
-  selector: 'app-companies',
-  templateUrl: './companies.component.html',
-  styleUrls: ['./companies.component.scss']
+  selector: 'app-group-add',
+  templateUrl: './group-add.component.html',
+  styleUrls: ['./group-add.component.scss']
 })
-export class CompaniesComponent implements OnInit {
-  form: any = {
-    nameCompany: null,
-    description: null,
-    location: null,
-    companyManagerID: null
-  };
-  companyID: any;
+export class GroupAddComponent implements OnInit {
+  currentUser: any;
+  isChecked: boolean;
   nameCompany: any;
   description: any;
   location: any;
   companyManager: any;
+  companyID: any;
+  isFoutGegaan: boolean;
   errorMessage: any;
-  isSuccessful = false;
-  isFoutGegaan = false;
-  currentUser: any;
-  isChecked = true;
-  fotoURL: any;
+  isWerknemers: boolean;
+  echteData: any;
+  isGroepen: boolean;
+  isBeheerder: boolean;
   msg: string;
   file: any;
-  localCompressedURl:any;
-  isWerknemers: boolean;
-  firstName: any;
-  lastName: any;
-  echteData: any;
-  echteDataGroep: any;
-  isGroepen: boolean;
-  
+  localCompressedURl: string;
+  form: any = {
+    nameGroup: null,
+    fotoURL: null,
+    theme: null,
+  };
+  isSuccessful: boolean;
 
+  constructor(private companyService: CompanyService, private token: TokenStorageService, private imageCompress: NgxImageCompressService, private groupService: GroupService) { }
 
-
-
-  constructor(private companyService: CompanyService, private token: TokenStorageService, private imageCompress: NgxImageCompressService) { }
   selectFile(event: any) {
 		if(!event.target.files[0] || event.target.files[0].length == 0) {
 			this.msg = 'You must select an image';
@@ -64,8 +57,8 @@ export class CompaniesComponent implements OnInit {
 		
 		reader.onload = (_event) => {
 			this.msg = "";
-			this.currentUser.fotoURL = reader.result; 
-      this.compressFile(this.fotoURL,fileName)
+			this.form.fotoURL = reader.result; 
+      this.compressFile(this.form.fotoURL,fileName)
 		}
 	}
   compressFile(image,fileName) {
@@ -110,44 +103,52 @@ export class CompaniesComponent implements OnInit {
         this.errorMessage = err.error.message;
       }
     );
+    this.companyService.GetGroepenByBeheerder(this.currentUser.userID).subscribe(
+      data => {
+        this.isBeheerder = true;
+        var realData = JSON.parse(data);
+        this.form.nameGroup = realData["nameGroup"];
+        this.form.fotoURL = realData["fotoURL"];
+        this.form.theme = realData["theme"];
+        this.reloadPage();
+      },
+      err => {
+        this.isBeheerder = false;
+        this.isFoutGegaan = true;
+        this.errorMessage = err.error.message;
+      }
+    );
     const check = await this.companyService.checkManager(this.currentUser.userID).toPromise();
     let checkJSON = JSON.parse(check);
     this.companyID = checkJSON["companyID"];
 
 
-    this.companyService.GetWerknemers(this.companyID).subscribe(
-      data => {
-        this.isWerknemers = true;
-        this.echteData = JSON.parse(data);
-      },
-      err => {
-        this.isWerknemers = false;
-        this.isFoutGegaan = true;
-        this.errorMessage = err.error.message;
-      }
-    );
 
-    this.companyService.GetGroepen(this.companyID).subscribe(
-      data => {
-        this.isGroepen = true;
-         this.echteDataGroep = JSON.parse(data);
-      },
-      err => {
-        this.isGroepen = false;
-        this.isFoutGegaan = true;
-        this.errorMessage = err.error.message;
-      }
-    );
     
   }
 
   onSubmit(): void {
-    const { nameCompany, description, location } = this.form;
-
-    this.companyService.create(nameCompany, description, location, this.currentUser.userID, this.fotoURL).subscribe(
+    const { nameGroup, fotoURL, theme } = this.form;
+    let groep = new Group(0, nameGroup, fotoURL, theme);
+    console.log(groep);
+    this.groupService.addGroup(groep).subscribe(
       data => {
         this.isSuccessful = true;
-        this.reloadPage();
+        var groupID = data.groupID;
+        this.companyService.AddUserToCompany(this.companyID, this.currentUser.userID, 5, groupID ).subscribe(
+          data => {
+            this.isSuccessful = true;
+            this.reloadPage();
+          },
+          err => {
+            this.isFoutGegaan = true;
+            this.errorMessage = err.error.message;
+          });
+        console.log(this.companyID);
+        console.log(this.currentUser.userID);
+        console.log(groupID);
+
+        console.log(data);
       },
       err => {
         this.isFoutGegaan = true;

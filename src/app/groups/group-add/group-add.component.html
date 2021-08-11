@@ -1,0 +1,62 @@
+<div class=form *ngIf="this.isChecked || this.isBeheerder">
+    <div class="col-md-12">
+        <div class="card card-container">
+          <form
+            name="form"
+            (ngSubmit)="f.form.valid && onSubmit()"
+            #f="ngForm"
+            novalidate
+          >
+          
+            <div class="form-group">
+              <label for="nameGroup">Naam groep</label>
+              <input
+                type="text"
+                class="form-control"
+                name="nameGroup"
+                [(ngModel)]="form.nameGroup"
+                required
+                #nameGroup="ngModel"
+              />
+              <div class="alert-danger" *ngIf="nameGroup.errors && f.submitted">
+                <div *ngIf="nameGroup.errors.required">Naam groep is verplicht</div>
+              </div>
+            </div>
+            <div style="text-align:center">
+                <label class="hoverable" for="fileInput">
+                    <div [innerHtml]='msg' *ngIf="msg" style="color: red;"></div>
+                    <div><img [src]="this.form.fotoURL ? this.form.fotoURL : 'https://www.w3schools.com/howto/img_avatar.png'" height="300px"></div>
+                    <div class="hover-text">Kies bestand</div>
+                </label>
+              <p>
+                <input id="fileInput" type="file" (change)="selectFile($event)">
+        
+              </p>
+            </div>
+            <div class="form-group">
+              <label for="theme">Thema</label>
+              <input
+                type="text"
+                class="form-control"
+                name="theme"
+                [(ngModel)]="form.theme"
+                required
+                #theme="ngModel"
+              />
+            </div>
+            
+            <div class="form-group">
+              <button class="btn btn-primary btn-block">Creëer bedrijf</button>
+            </div>
+      
+            <div class="alert alert-warning" *ngIf="f.submitted && isFoutGegaan">
+              Er is iets fout gegaan!<br />{{ errorMessage }}
+            </div>
+          </form>
+      
+          <div class="alert alert-success" *ngIf="isSuccessful">
+            Het bedrijf is succesvol aangemaakt!
+          </div>
+        </div>
+      </div>
+</div>
