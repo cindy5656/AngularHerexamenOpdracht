@@ -61,4 +61,10 @@ export class CompanyService implements OnInit{
   GetGroepenByBeheerder(userID: number): Observable<any> {
     return this.http.get(AUTH_API + '/Beheerder/' + userID, { responseType: 'text' });
   }
+  GetLeden(groupID: number, companyID: number): Observable<any> {
+    return this.http.get(AUTH_API + '/Groepsleden?groupID=' + groupID + '&companyID=' + companyID , { responseType: 'text' });
+  }
+  GetCompanyFromGroup(groupID: number): Observable<any> {
+    return this.http.get(AUTH_API + '/GetCompanyFromGroup/' + groupID , { responseType: 'text' });
+  }
 }

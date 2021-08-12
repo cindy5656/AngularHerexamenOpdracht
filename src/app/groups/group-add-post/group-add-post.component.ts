@@ -1,0 +1,118 @@
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { NgxImageCompressService } from 'ngx-image-compress';
+import { CompanyService } from 'src/app/_services/company.service';
+import { TokenStorageService } from 'src/app/_services/token-storage.service';
+import { GroupService } from '../group.service';
+
+@Component({
+  selector: 'app-group-add-post',
+  templateUrl: './group-add-post.component.html',
+  styleUrls: ['./group-add-post.component.scss']
+})
+export class GroupAddPostComponent implements OnInit {
+  msg: string;
+  file: any;
+  localCompressedURl: string;
+  currentUser: any;
+  isLid: boolean;
+  realData: any;
+  form: any = {
+    subject: null,
+    fotoURL: null,
+    content: null,
+  };
+
+  constructor(private companyService: CompanyService, private token: TokenStorageService, private imageCompress: NgxImageCompressService, private groupService: GroupService, private route: ActivatedRoute) { }
+
+  selectFile(event: any) {
+		if(!event.target.files[0] || event.target.files[0].length == 0) {
+			this.msg = 'You must select an image';
+			return;
+		}
+		
+		var mimeType = event.target.files[0].type;
+		
+		if (mimeType.match(/image\/*/) == null) {
+			this.msg = "Only images are supported";
+			return;
+		}
+		var  fileName : any;
+    this.file = event.target.files[0];
+    fileName = this.file['name'];
+
+		var reader = new FileReader();
+		reader.readAsDataURL(event.target.files[0]);
+		
+		reader.onload = (_event) => {
+			this.msg = "";
+			this.form.fotoURL = reader.result; 
+      this.compressFile(this.form.fotoURL,fileName)
+		}
+	}
+  compressFile(image,fileName) {
+    var orientation = -1;
+    console.warn('Size in bytes is now:',  this.imageCompress.byteCount(image)/(1024*1024));
+    this.imageCompress.compressFile(image, orientation, 75, 75).then(
+    result => {
+    const imageName = fileName;// call method that creates a blob from dataUri
+    const imageBlob = this.dataURItoBlob(result.split(',')[1]);//imageFile created below is the new compressed file which can be send to API in form data
+    const imageFile = new File([result], imageName, { type: 'image/jpeg' });
+    this.localCompressedURl = result;
+    console.log(result);
+    console.warn('Size in bytes after compression:',  this.imageCompress.byteCount(result)/(1024*1024));
+    });
+  }
+  dataURItoBlob(dataURI) {
+    const byteString = window.atob(dataURI);
+    const arrayBuffer = new ArrayBuffer(byteString.length);
+    const int8Array = new Uint8Array(arrayBuffer);for (let i = 0; i < byteString.length; i++) {
+    int8Array[i] = byteString.charCodeAt(i);
+    }const blob = new Blob([int8Array], { type: 'image/jpeg' });
+    return blob;
+    }
+
+    
+    async ngOnInit(): Promise<void> {
+      var groupID = this.route.snapshot.paramMap.get("id");
+      console.log(groupID);
+      this.companyService.GetCompanyFromGroup(Number(groupID)).subscribe(
+        data => {
+          this.realData = JSON.parse(data);
+          console.log('get company from group');
+          console.log(this.realData);
+        },
+        err => {
+        }
+      );
+      const check = await this.companyService.GetCompanyFromGroup(Number(groupID)).toPromise();
+      let checkJSON = JSON.parse(check);
+      var companyID = checkJSON["companyID"];
+      console.log(companyID);
+      console.log(groupID);
+      this.currentUser = this.token.getUser();
+      this.companyService.GetLeden(Number(groupID), companyID).subscribe(
+        data => {
+          var realData = JSON.parse(data);
+          console.log(realData);
+          for (let real of realData) {
+            if(real["userID"] == this.currentUser.userID) {
+            this.isLid = true;
+            break;
+          }
+          else {
+            this.isLid = false;
+          }
+          }
+        },
+        err => {
+          this.isLid = false;
+        }
+      );
+      
+  
+  
+  
+      
+    }
+}

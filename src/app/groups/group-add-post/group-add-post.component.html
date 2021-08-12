@@ -1,4 +1,4 @@
-<div class=form *ngIf="this.isChecked || this.isBeheerder">
+<div class=form *ngIf="this.isLid">
     <div class="col-md-12">
         <div class="card card-container">
           <form
@@ -9,19 +9,33 @@
           >
           
             <div class="form-group">
-              <label for="nameGroup">Naam groep</label>
+              <label for="subject">Onderwerp</label>
               <input
                 type="text"
                 class="form-control"
-                name="nameGroup"
-                [(ngModel)]="form.nameGroup"
+                name="subject"
+                [(ngModel)]="form.subject"
                 required
-                #nameGroup="ngModel"
+                #subject="ngModel"
               />
-              <div class="alert-danger" *ngIf="nameGroup.errors && f.submitted">
-                <div *ngIf="nameGroup.errors.required">Naam groep is verplicht</div>
+              <div class="alert-danger" *ngIf="subject.errors && f.submitted">
+                <div *ngIf="subject.errors.required">Onderwerp is verplicht</div>
               </div>
             </div>
+            <div class="form-group">
+                <label for="content">Inhoud</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="content"
+                  [(ngModel)]="form.content"
+                  required
+                  #content="ngModel"
+                />
+                <div class="alert-danger" *ngIf="content.errors && f.submitted">
+                  <div *ngIf="content.errors.required">Inhoud is verplicht</div>
+                </div>
+              </div>
             <div style="text-align:center">
                 <label class="hoverable" for="fileInput">
                     <div [innerHtml]='msg' *ngIf="msg" style="color: red;"></div>
@@ -33,20 +47,9 @@
         
               </p>
             </div>
-            <div class="form-group">
-              <label for="theme">Thema</label>
-              <input
-                type="text"
-                class="form-control"
-                name="theme"
-                [(ngModel)]="form.theme"
-                required
-                #theme="ngModel"
-              />
-            </div>
             
             <div class="form-group">
-              <button class="btn btn-primary btn-block">Creëer groep</button>
+              <button class="btn btn-primary btn-block">Creëer post</button>
             </div>
       
             <div class="alert alert-warning" *ngIf="f.submitted && isFoutGegaan">
@@ -55,7 +58,7 @@
           </form>
       
           <div class="alert alert-success" *ngIf="isSuccessful">
-            De groep is succesvol aangemaakt!
+            De post is succesvol aangemaakt!
           </div>
         </div>
       </div>
