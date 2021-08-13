@@ -24,14 +24,14 @@
             </div>
             <div class="form-group">
                 <label for="content">Inhoud</label>
-                <input
-                  type="text"
+                <textarea
                   class="form-control"
                   name="content"
                   [(ngModel)]="form.content"
                   required
                   #content="ngModel"
-                />
+                ></textarea>
+                
                 <div class="alert-danger" *ngIf="content.errors && f.submitted">
                   <div *ngIf="content.errors.required">Inhoud is verplicht</div>
                 </div>

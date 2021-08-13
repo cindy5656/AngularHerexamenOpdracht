@@ -3,7 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { NgxImageCompressService } from 'ngx-image-compress';
 import { CompanyService } from 'src/app/_services/company.service';
 import { TokenStorageService } from 'src/app/_services/token-storage.service';
+import { PostService } from 'src/app/_services/post.service';
 import { GroupService } from '../group.service';
+import {Post} from '../models/post.model'
 
 @Component({
   selector: 'app-group-add-post',
@@ -19,11 +21,19 @@ export class GroupAddPostComponent implements OnInit {
   realData: any;
   form: any = {
     subject: null,
-    fotoURL: null,
     content: null,
+    fotoURL: null,
   };
+  isSuccessful: boolean;
+  isFoutGegaan: boolean;
+  errorMessage: any;
 
-  constructor(private companyService: CompanyService, private token: TokenStorageService, private imageCompress: NgxImageCompressService, private groupService: GroupService, private route: ActivatedRoute) { }
+  constructor(private companyService: CompanyService, 
+    private token: TokenStorageService, 
+    private imageCompress: NgxImageCompressService, 
+    private groupService: GroupService, 
+    private route: ActivatedRoute,
+    private postService: PostService) { }
 
   selectFile(event: any) {
 		if(!event.target.files[0] || event.target.files[0].length == 0) {
@@ -108,11 +118,24 @@ export class GroupAddPostComponent implements OnInit {
         err => {
           this.isLid = false;
         }
+      );      
+    }
+
+    onSubmit(): void {
+      const { subject, content, fotoURL } = this.form;
+      let post = new Post(0, subject, content, fotoURL);
+      console.log(post);
+      this.postService.create(post).subscribe(
+        data => {
+          this.isSuccessful = true;
+          var groupID = data.groupID;
+  
+          console.log(data);
+        },
+        err => {
+          this.isFoutGegaan = true;
+          this.errorMessage = err.error.message;
+        }
       );
-      
-  
-  
-  
-      
     }
 }
