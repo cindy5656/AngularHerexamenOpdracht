@@ -8,6 +8,7 @@ import { CompanyEditComponent } from './companies/company-edit/company-edit.comp
 import { CompanyUserAddComponent } from './companies/company-user-add/company-user-add.component';
 import { GroupsComponent } from './groups/groups.component';
 import { GroupAddComponent } from './groups/group-add/group-add.component';
+import { GroupEditPostComponent } from './groups/group-edit-post/group-edit-post.component';
 
 
 const routes: Routes = [
@@ -18,7 +19,9 @@ const routes: Routes = [
   { path: 'company/:id', component: CompanyEditComponent },
   { path: 'company/userAdd/:id', component: CompanyUserAddComponent },  
   { path: 'group/:id', component: GroupsComponent },
-  { path: 'group/add/:id', component: GroupAddComponent }
+  { path: 'group/add/:id', component: GroupAddComponent },
+  { path: 'group/edit-post/:id', component: GroupEditPostComponent }
+
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

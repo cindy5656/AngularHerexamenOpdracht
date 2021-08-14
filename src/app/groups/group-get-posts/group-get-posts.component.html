@@ -1,4 +1,4 @@
-<div *ngIf="this.isPostByUser" class="text-center">
+<div class="text-center">
       <div>
         <table class="table">
           <thead>
@@ -6,6 +6,8 @@
               <th>Onderwerp</th>
               <th>Inhoud</th>
               <th>Foto</th>
+              <th>Wijzig</th>
+              <th>Verwijder</th>
             </tr>
           </thead>
           <tbody>
@@ -13,6 +15,10 @@
               <td>{{data.content}}</td>
               <td>{{data.subject}}</td>
               <td> <img [src]="data.fotoURL ? data.fotoURL : 'https://www.w3schools.com/howto/img_avatar.png'" height="100px">
+              </td>
+              <td *ngIf="this.isPostByUser">    <a href="/group/edit-post/{{data.postID}}" class="button btn-block">Wijzig {{data.postID}}</a>
+              </td>
+              <td *ngIf="this.isPostByUser"><button (click)="deletePost(data.postID)">  Verwijder {{data.postID}} </button>
               </td>
             </tr>
           </tbody>

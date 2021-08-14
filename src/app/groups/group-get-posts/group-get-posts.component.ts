@@ -39,6 +39,30 @@ export class GroupGetPostsComponent implements OnInit {
         this.errorMessage = err.error.message;
       }
     );
+    
+  }
+
+  deletePost(postID: number) {
+    this.postService.deletePost(postID).subscribe(
+      data => {
+        this.postService.DeletePostFromUserAndGroup(postID).subscribe(
+          data => {this.reloadPage()          },
+          err => {
+            this.isFoutGegaan = true;
+            this.errorMessage = err.error.message;
+          }
+        );
+    
+      },
+      err => {
+        this.isFoutGegaan = true;
+        this.errorMessage = err.error.message;
+      }
+    );
+
+  }
+  reloadPage() {
+    window.location.reload();
   }
 
 }

@@ -33,5 +33,13 @@ export class PostService implements OnInit{
 		return this.http.post<Post>(AUTH_API + '/AddPostToUserAndGroup?postID=' + postID + '&userID=' + userID + '&groupID=' + groupID, httpOptions);
 	}
 
+  deletePost(postID: number) {
+		return this.http.delete<Post>(AUTH_API + '/' + postID);
+	}
+
+  DeletePostFromUserAndGroup(postID: number) {
+		return this.http.delete<Post>(AUTH_API + '/DeletePostFromUserAndGroup/' + postID);
+	}
+
   
 }
