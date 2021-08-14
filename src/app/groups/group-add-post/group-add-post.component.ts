@@ -137,6 +137,7 @@ export class GroupAddPostComponent implements OnInit {
     
       
               console.log(JSONData2);
+              this.reloadPage();
             },
             err => {
               this.isFoutGegaan = true;
@@ -152,5 +153,8 @@ export class GroupAddPostComponent implements OnInit {
           this.errorMessage = err.error.message;
         }
       );
+    }
+    reloadPage() {
+      window.location.reload();
     }
 }

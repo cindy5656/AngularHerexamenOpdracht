@@ -18,8 +18,8 @@ export class PostService implements OnInit{
   constructor(private http: HttpClient) { }
   ngOnInit(): void {
   }
-  getPosts(): Observable<any> {
-    return this.http.get(AUTH_API  , httpOptions);
+  GetPostsByUser(userID: number): Observable<any> {
+    return this.http.get(AUTH_API + '/GetPostsByUser/' + userID , httpOptions);
   }
   create(post: Post): Observable<any> {
     return this.http.post(AUTH_API , post , httpOptions);

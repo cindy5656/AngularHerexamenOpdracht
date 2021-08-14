@@ -1,0 +1,21 @@
+<div *ngIf="this.isPostByUser" class="text-center">
+      <div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Onderwerp</th>
+              <th>Inhoud</th>
+              <th>Foto</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of this.echteData">
+              <td>{{data.content}}</td>
+              <td>{{data.subject}}</td>
+              <td> <img [src]="data.fotoURL ? data.fotoURL : 'https://www.w3schools.com/howto/img_avatar.png'" height="100px">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>

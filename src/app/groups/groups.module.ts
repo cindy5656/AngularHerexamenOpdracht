@@ -5,11 +5,12 @@ import { GroupService } from './group.service';
 import { GroupAddComponent } from './group-add/group-add.component'; 
 import { FormsModule } from '@angular/forms';
 import { GroupAddPostComponent } from './group-add-post/group-add-post.component';
+import { GroupGetPostsComponent } from './group-get-posts/group-get-posts.component';
 
 
 
 @NgModule({
-  declarations: [GroupsComponent, GroupAddComponent, GroupAddPostComponent],
+  declarations: [GroupsComponent, GroupAddComponent, GroupAddPostComponent, GroupGetPostsComponent],
   imports: [
     CommonModule, FormsModule
   ],
