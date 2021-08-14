@@ -21,12 +21,15 @@ export class PostService implements OnInit{
   GetPostsByUser(userID: number): Observable<any> {
     return this.http.get(AUTH_API + '/GetPostsByUser/' + userID , httpOptions);
   }
+  GetPostByID(postID: number): Observable<any> {
+    return this.http.get(AUTH_API + '/' + postID , httpOptions);
+  }
   create(post: Post): Observable<any> {
     return this.http.post(AUTH_API , post , httpOptions);
   }
 
   update(postID: number, post: Post) {
-		return this.http.put<Post>(AUTH_API + postID, post);
+		return this.http.put<Post>(AUTH_API + '/' + postID, post);
 	}
   
   AddPostToUserAndGroup(postID: number, userID: number, groupID: number) {

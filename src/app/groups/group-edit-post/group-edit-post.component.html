@@ -1,0 +1,65 @@
+<div class=form *ngIf="this.isSchrijver">
+    <div class="col-md-12">
+        <div class="card card-container">
+          <form
+            name="form"
+            (ngSubmit)="f.form.valid && onSubmit()"
+            #f="ngForm"
+            novalidate
+          >
+          
+            <div class="form-group">
+              <label for="subject">Onderwerp</label>
+              <input
+                type="text"
+                class="form-control"
+                name="subject"
+                [(ngModel)]="form.subject"
+                required
+                #subject="ngModel"
+              />
+              <div class="alert-danger" *ngIf="subject.errors && f.submitted">
+                <div *ngIf="subject.errors.required">Onderwerp is verplicht</div>
+              </div>
+            </div>
+            <div class="form-group">
+                <label for="content">Inhoud</label>
+                <textarea
+                  class="form-control"
+                  name="content"
+                  [(ngModel)]="form.content"
+                  required
+                  #content="ngModel"
+                ></textarea>
+                
+                <div class="alert-danger" *ngIf="content.errors && f.submitted">
+                  <div *ngIf="content.errors.required">Inhoud is verplicht</div>
+                </div>
+              </div>
+            <div style="text-align:center">
+                <label class="hoverable" for="fileInput">
+                    <div [innerHtml]='msg' *ngIf="msg" style="color: red;"></div>
+                    <div><img [src]="this.form.fotoURL ? this.form.fotoURL : 'https://www.w3schools.com/howto/img_avatar.png'" height="300px"></div>
+                    <div class="hover-text">Kies bestand</div>
+                </label>
+              <p>
+                <input id="fileInput" type="file" (change)="selectFile($event)">
+        
+              </p>
+            </div>
+            
+            <div class="form-group">
+              <button class="btn btn-primary btn-block">Wijzig post</button>
+            </div>
+      
+            <div class="alert alert-warning" *ngIf="f.submitted && isFoutGegaan">
+              Er is iets fout gegaan!<br />{{ errorMessage }}
+            </div>
+          </form>
+      
+          <div class="alert alert-success" *ngIf="isSuccessful">
+            De post is succesvol gewijzigd!
+          </div>
+        </div>
+      </div>
+</div>
