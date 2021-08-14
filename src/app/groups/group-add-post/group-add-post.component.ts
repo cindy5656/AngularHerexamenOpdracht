@@ -27,6 +27,7 @@ export class GroupAddPostComponent implements OnInit {
   isSuccessful: boolean;
   isFoutGegaan: boolean;
   errorMessage: any;
+  groupID: any;
 
   constructor(private companyService: CompanyService, 
     private token: TokenStorageService, 
@@ -84,9 +85,9 @@ export class GroupAddPostComponent implements OnInit {
 
     
     async ngOnInit(): Promise<void> {
-      var groupID = this.route.snapshot.paramMap.get("id");
-      console.log(groupID);
-      this.companyService.GetCompanyFromGroup(Number(groupID)).subscribe(
+      this.groupID = this.route.snapshot.paramMap.get("id");
+      console.log(this.groupID);
+      this.companyService.GetCompanyFromGroup(Number(this.groupID)).subscribe(
         data => {
           this.realData = JSON.parse(data);
           console.log('get company from group');
@@ -95,13 +96,13 @@ export class GroupAddPostComponent implements OnInit {
         err => {
         }
       );
-      const check = await this.companyService.GetCompanyFromGroup(Number(groupID)).toPromise();
+      const check = await this.companyService.GetCompanyFromGroup(Number(this.groupID)).toPromise();
       let checkJSON = JSON.parse(check);
       var companyID = checkJSON["companyID"];
       console.log(companyID);
-      console.log(groupID);
+      console.log(this.groupID);
       this.currentUser = this.token.getUser();
-      this.companyService.GetLeden(Number(groupID), companyID).subscribe(
+      this.companyService.GetLeden(Number(this.groupID), companyID).subscribe(
         data => {
           var realData = JSON.parse(data);
           console.log(realData);
@@ -128,9 +129,23 @@ export class GroupAddPostComponent implements OnInit {
       this.postService.create(post).subscribe(
         data => {
           this.isSuccessful = true;
-          var groupID = data.groupID;
+          var JSONData = JSON.parse(JSON.stringify(data));
+          console.log(JSONData["postID"]);
+          this.postService.AddPostToUserAndGroup(JSONData["postID"], this.currentUser.userID, Number(this.groupID)).subscribe(
+            data => {
+              var JSONData2 = JSON.stringify(data);
+    
+      
+              console.log(JSONData2);
+            },
+            err => {
+              this.isFoutGegaan = true;
+              this.errorMessage = err.error.message;
+            }
+          );
+
   
-          console.log(data);
+          console.log(JSONData);
         },
         err => {
           this.isFoutGegaan = true;
