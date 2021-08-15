@@ -36,7 +36,6 @@ export class GroupGetPostsComponent implements OnInit {
     this.postService.GetPostsByGroup(this.groupID).subscribe(
       data => {
         this.echteData = JSON.parse(JSON.stringify(data));
-        console.log('get posts', this.echteData);
       },
       err => {
         this.isFoutGegaan = true;
@@ -104,7 +103,6 @@ export class GroupGetPostsComponent implements OnInit {
     Post.aantalLikes +=1;
     this.postService.update(postID, Post).subscribe(
       data => {
-          console.log('like', data);
            this.isGeliked = true;
       },
       err => {
@@ -115,7 +113,6 @@ export class GroupGetPostsComponent implements OnInit {
     );
     this.postService.PostLikedBy(postID, this.currentUser.userID).subscribe(
       data => {
-          console.log('like', data);
            this.isGeliked = true;
       },
       err => {
@@ -140,7 +137,6 @@ export class GroupGetPostsComponent implements OnInit {
     );
     this.postService.PostDislikedBy(postID, this.currentUser.userID).subscribe(
       data => {
-          console.log('dislike', data);
            this.isDisliked = true;
       },
       err => {

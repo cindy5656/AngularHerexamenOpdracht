@@ -59,7 +59,7 @@ export class ProfileComponent implements OnInit {
   compressFile(image,fileName) {
     var orientation = -1;
     console.warn('Size in bytes is now:',  this.imageCompress.byteCount(image)/(1024*1024));
-    this.imageCompress.compressFile(image, orientation, 75, 75).then(
+    this.imageCompress.compressFile(image, orientation, 25, 25).then(
     result => {
     const imageName = fileName;// call method that creates a blob from dataUri
     const imageBlob = this.dataURItoBlob(result.split(',')[1]);//imageFile created below is the new compressed file which can be send to API in form data

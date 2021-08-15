@@ -64,7 +64,7 @@ export class GroupAddPostComponent implements OnInit {
   compressFile(image,fileName) {
     var orientation = -1;
     console.warn('Size in bytes is now:',  this.imageCompress.byteCount(image)/(1024*1024));
-    this.imageCompress.compressFile(image, orientation, 75, 75).then(
+    this.imageCompress.compressFile(image, orientation, 25, 25).then(
     result => {
     const imageName = fileName;// call method that creates a blob from dataUri
     const imageBlob = this.dataURItoBlob(result.split(',')[1]);//imageFile created below is the new compressed file which can be send to API in form data
@@ -86,12 +86,9 @@ export class GroupAddPostComponent implements OnInit {
     
     async ngOnInit(): Promise<void> {
       this.groupID = this.route.snapshot.paramMap.get("id");
-      console.log(this.groupID);
       this.companyService.GetCompanyFromGroup(Number(this.groupID)).subscribe(
         data => {
           this.realData = JSON.parse(data);
-          console.log('get company from group');
-          console.log(this.realData);
         },
         err => {
         }
@@ -99,13 +96,10 @@ export class GroupAddPostComponent implements OnInit {
       const check = await this.companyService.GetCompanyFromGroup(Number(this.groupID)).toPromise();
       let checkJSON = JSON.parse(check);
       var companyID = checkJSON["companyID"];
-      console.log(companyID);
-      console.log(this.groupID);
       this.currentUser = this.token.getUser();
       this.companyService.GetLeden(Number(this.groupID), companyID).subscribe(
         data => {
           var realData = JSON.parse(data);
-          console.log(realData);
           for (let real of realData) {
             if(real["userID"] == this.currentUser.userID) {
             this.isLid = true;
@@ -125,18 +119,15 @@ export class GroupAddPostComponent implements OnInit {
     onSubmit(): void {
       const { subject, content, fotoURL } = this.form;
       let post = new Post(0, subject, content, fotoURL, 0, 0);
-      console.log(post);
       this.postService.create(post).subscribe(
         data => {
           this.isSuccessful = true;
           var JSONData = JSON.parse(JSON.stringify(data));
-          console.log(JSONData["postID"]);
           this.postService.AddPostToUserAndGroup(JSONData["postID"], this.currentUser.userID, Number(this.groupID)).subscribe(
             data => {
               var JSONData2 = JSON.stringify(data);
     
       
-              console.log(JSONData2);
               this.reloadPage();
             },
             err => {

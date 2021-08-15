@@ -1,6 +1,9 @@
- <h2>Groepen:</h2>
-<ul>
-<li *ngFor="let group of groups">{{group.nameGroup}}, {{group.groupID}}</li>
-</ul> 
+<div *ngIf="this.groups.indexOf(this.groupID) != -1">
 <app-group-add-post></app-group-add-post>
 <app-group-get-posts></app-group-get-posts>
+</div>
+<br>
+<br>
+<div *ngIf="this.groups.indexOf(this.groupID) == -1" class="alert-danger text-center">
+    <h2>Deze groep bestaat niet. Gelieve een andere groep te kiezen</h2>
+    </div>
