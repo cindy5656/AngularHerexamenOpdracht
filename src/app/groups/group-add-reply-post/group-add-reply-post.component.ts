@@ -7,6 +7,7 @@ import { TokenStorageService } from 'src/app/_services/token-storage.service';
 import { GroupService } from '../group.service';
 import { ReplyService } from 'src/app/_services/reply.service';
 import { Reply } from '../models/reply.model'
+import {ChangeDetectorRef} from '@angular/core';
 
 @Component({
   selector: 'app-group-add-reply-post',
@@ -35,7 +36,9 @@ export class GroupAddReplyPostComponent implements OnInit {
     private groupService: GroupService, 
     private route: ActivatedRoute,
     private postService: PostService,
-    private replyService: ReplyService) { }
+    private replyService: ReplyService,
+    private cd : ChangeDetectorRef
+    ) { }
 
   ngOnInit(): void {
     this.form.postID = this.route.snapshot.paramMap.get("id");
@@ -103,19 +106,7 @@ export class GroupAddReplyPostComponent implements OnInit {
     }
     reloadPage() {
       window.location.reload();
-      this.replyService.GetRepliesByPost(Number(this.form.postID)).subscribe(
-        data => {
-          this.hasReacties = true;
-          var JSONData = JSON.parse(JSON.stringify(data));
-          
-          console.log(JSONData);
-        },
-        err => {
-          this.hasReacties = false;
-          this.isFoutGegaan = true;
-          this.errorMessage = err.error.message;
-        }
-      );
+      
     }
 
   

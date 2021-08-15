@@ -24,6 +24,12 @@ export class PostService implements OnInit{
   GetPostsByGroup(groupID: number): Observable<any> {
     return this.http.get(AUTH_API + '/GetPostsByGroup/' + groupID , httpOptions);
   }
+  CheckIfPostLikedByUser(userID: number): Observable<any> {
+    return this.http.get(AUTH_API + '/CheckIfPostLikedByUser/' + userID, httpOptions);
+  }
+  CheckIfPostDislikedByUser(userID: number): Observable<any> {
+    return this.http.get(AUTH_API + '/CheckIfPostDislikedByUser/' + userID  , httpOptions);
+  }
   GetPostByID(postID: number): Observable<any> {
     return this.http.get(AUTH_API + '/' + postID , httpOptions);
   }
@@ -47,5 +53,11 @@ export class PostService implements OnInit{
 		return this.http.delete<Post>(AUTH_API + '/DeletePostFromUserAndGroup/' + postID);
 	}
 
-  
+  PostLikedBy(postID: number, userID: number) {
+		return this.http.post<Post>(AUTH_API + '/PostLikedBy?postID=' + postID + '&userID=' + userID , httpOptions);
+	}
+
+  PostDislikedBy(postID: number, userID: number) {
+		return this.http.post<Post>(AUTH_API + '/PostDislikedBy?postID=' + postID + '&userID=' + userID , httpOptions);
+	}
 }

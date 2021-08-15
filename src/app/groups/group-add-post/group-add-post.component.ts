@@ -124,7 +124,7 @@ export class GroupAddPostComponent implements OnInit {
 
     onSubmit(): void {
       const { subject, content, fotoURL } = this.form;
-      let post = new Post(0, subject, content, fotoURL);
+      let post = new Post(0, subject, content, fotoURL, 0, 0);
       console.log(post);
       this.postService.create(post).subscribe(
         data => {

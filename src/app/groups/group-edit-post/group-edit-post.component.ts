@@ -18,6 +18,8 @@ export class GroupEditPostComponent implements OnInit {
     subject: null,
     content: null,
     fotoURL: null,
+    aantalLikes: 0,
+    aantalDislikes: 0
   };
   isFoutGegaan: boolean;
   errorMessage: any;
@@ -90,6 +92,8 @@ export class GroupEditPostComponent implements OnInit {
         this.form.subject = JSONData["subject"];
         this.form.content = JSONData["content"];
         this.form.fotoURL = JSONData["fotoURL"];
+        this.form.aantalLikes = JSONData["aantalLikes"];
+        this.form.aantalDislikes = JSONData["aantalDislikes"];
 
 
         console.log(JSONData);
@@ -105,8 +109,8 @@ export class GroupEditPostComponent implements OnInit {
 
 
     onSubmit(): void {
-      const {postID, subject, content, fotoURL } = this.form;
-      let post = new Post(Number(postID), subject, content, fotoURL);
+      const {postID, subject, content, fotoURL, aantalLikes, aantalDislikes } = this.form;
+      let post = new Post(Number(postID), subject, content, fotoURL, aantalLikes, aantalDislikes);
       console.log(post);
       this.postService.update(Number(postID), post).subscribe(
         data => {
