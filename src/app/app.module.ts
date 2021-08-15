@@ -20,6 +20,7 @@ import { CompaniesComponent } from './companies/companies.component';
 import { CompanyEditComponent } from './companies/company-edit/company-edit.component';
 import {NgxImageCompressService} from 'ngx-image-compress';
 import { CompanyUserAddComponent } from './companies/company-user-add/company-user-add.component';
+import { AuthGuard } from './_guards/auth.guard';
 
 
 @NgModule({
@@ -43,7 +44,7 @@ import { CompanyUserAddComponent } from './companies/company-user-add/company-us
 	UsersModule,
 	MDBBootstrapModule.forRoot()
   ],
-  providers: [authInterceptorProviders, NgxImageCompressService],
+  providers: [authInterceptorProviders, NgxImageCompressService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule implements OnInit{
