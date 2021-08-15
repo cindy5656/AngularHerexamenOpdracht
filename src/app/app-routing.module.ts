@@ -14,6 +14,7 @@ import { AuthGuard } from './_guards/auth.guard';
 
 
 const routes: Routes = [
+  { path: '',redirectTo:'/profile', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
