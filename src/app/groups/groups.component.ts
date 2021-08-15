@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GroupService } from './group.service'; 
 import { Group } from './models/group.model'; 
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
 
 @Component({
   selector: 'app-groups',
@@ -11,14 +12,9 @@ import { Group } from './models/group.model';
  export class GroupsComponent implements OnInit {
 	groups: Group[];
 	groupID: any;
+	isBestaandeGroep: boolean = null;
  constructor(private _groupService: GroupService, private route: ActivatedRoute) {
 	this.groupID = this.route.snapshot.paramMap.get("id");
-	this._groupService.getGroups().subscribe(
-	result => {
-		this.groups = result;
-		console.log(this.groups.indexOf(this.groupID));
-		}
-	);
 
 	
 		
@@ -39,7 +35,18 @@ import { Group } from './models/group.model';
 			} 
 
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+	 this.groups = await this._groupService.getGroups().toPromise();
+	 for (let x of this.groups) {
+		if (x.groupID == this.groupID) {
+			this.isBestaandeGroep = true;
+			break;
+		}
+		else {
+			this.isBestaandeGroep = false;
+		}
+	}
+	
   }
 
 }

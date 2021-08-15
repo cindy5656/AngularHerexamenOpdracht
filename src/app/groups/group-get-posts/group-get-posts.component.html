@@ -1,3 +1,5 @@
+<div *ngIf="this.isPostByUser !== null; else somethingelse">
+
 <div class="text-center">
   <div>
     <table class="table">
@@ -21,7 +23,7 @@
           </td>
           <td *ngIf="this.isPostByUser"><button (click)="deletePost(data.postID)">  Verwijder {{data.postID}} </button>
           </td>
-          <td *ngIf="this.isPostByUser">
+          <td *ngIf="!this.isPostByUser">
             <button [disabled]="this.isGeliked? true : null" type="button" class="btn btn-sm btn-success"><i class="fas fa-thumbs-up" (click)="incrementLikes(data.postID, data)">{{data.aantalLikes}}</i></button>  
             <button [disabled]="this.isDisliked? true : null" type="button" class="btn btn-sm btn-danger"><i class="fas fa-thumbs-down" (click)="incrementDislikes(data.postID, data)">{{data.aantalDislikes}}</i></button>  
           </td>
@@ -30,4 +32,9 @@
     </table>
   </div>
 </div>
-
+</div>
+<ng-template #somethingelse class="fa-3x">
+  <br>
+  <br>
+  <h2 class="text-center">Laden  <i class="fas fa-spinner fa-spin"></i></h2>
+</ng-template>

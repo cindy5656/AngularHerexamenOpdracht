@@ -14,7 +14,7 @@ import { Post } from '../models/post.model';
 })
 export class GroupGetPostsComponent implements OnInit {
   currentUser: any;
-  isPostByUser: boolean;
+  isPostByUser: boolean = null;
   echteData: any;
   isFoutGegaan: boolean;
   errorMessage: any;

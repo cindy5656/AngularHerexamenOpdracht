@@ -1,9 +1,16 @@
-<div *ngIf="this.groups.indexOf(this.groupID) != -1">
+<div *ngIf="this.isBestaandeGroep !== null; else somethingelse">
+<div *ngIf="this.isBestaandeGroep">
 <app-group-add-post></app-group-add-post>
 <app-group-get-posts></app-group-get-posts>
 </div>
 <br>
 <br>
-<div *ngIf="this.groups.indexOf(this.groupID) == -1" class="alert-danger text-center">
+<div *ngIf="!this.isBestaandeGroep" class="alert-danger text-center">
     <h2>Deze groep bestaat niet. Gelieve een andere groep te kiezen</h2>
     </div>
+</div>
+<ng-template #somethingelse class="fa-3x">
+    <br>
+    <br>
+    <h2 class="text-center">Laden  <i class="fas fa-spinner fa-spin"></i></h2>
+</ng-template>

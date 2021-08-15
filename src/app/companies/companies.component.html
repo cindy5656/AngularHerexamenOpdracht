@@ -1,3 +1,5 @@
+<div *ngIf="this.isChecked !== null; else somethingelse">
+
 <div class=form *ngIf="!this.isChecked">
 <div class="col-md-12">
     <div class="card card-container">
@@ -110,6 +112,7 @@
         </table>
       </div>
     </div>
+    <div *ngIf="this.isGroepen !== null; else somethingelse">
 
     <div *ngIf="this.isGroepen" class="text-center">
       <h2>Groepen</h2>
@@ -139,3 +142,10 @@
       <a href="/group/add/{{this.companyID}}" class="button btn-block">Klik hier om groepen toe te voegen aan dit bedrijf</a>
     </p>
   </div>
+  </div>
+</div>
+  <ng-template #somethingelse class="fa-3x">
+    <br>
+    <br>
+    <h2 class="text-center">Laden  <i class="fas fa-spinner fa-spin"></i></h2>
+</ng-template>

@@ -26,7 +26,7 @@ export class CompaniesComponent implements OnInit {
   isSuccessful = false;
   isFoutGegaan = false;
   currentUser: any;
-  isChecked = true;
+  isChecked : boolean = null;
   fotoURL: any;
   msg: string;
   file: any;
@@ -36,7 +36,7 @@ export class CompaniesComponent implements OnInit {
   lastName: any;
   echteData: any;
   echteDataGroep: any;
-  isGroepen: boolean;
+  isGroepen: boolean = null;
   
 
 
