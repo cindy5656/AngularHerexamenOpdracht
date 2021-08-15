@@ -1,0 +1,50 @@
+<div class=form>
+    <div class="col-md-12">
+        <div class="card card-container">
+          
+              <p>Onderwerp: {{this.subject}} </p>
+              <p>Inhoud: {{this.content}}</p>
+            
+            <div style="text-align:center" *ngIf="this.fotoURL">
+                    <div><img [src]="this.fotoURL" height="200px"></div>
+            </div>
+            <form
+            name="form"
+            (ngSubmit)="f.form.valid && onSubmit()"
+            #f="ngForm"
+            novalidate
+          >
+          <div *ngIf="this.hasReacties">
+            <h3>Reacties</h3>
+            <div *ngFor="let data of this.dataFromRepliesByPost"><p class="ml-5">{{data.replyContent}}</p></div>
+          </div>
+
+            <div class="form-group">
+                <label for="replyContent">Reageer</label>
+              <input
+                type="text"
+                class="form-control"
+                name="replyContent"
+                [(ngModel)]="form.replyContent"
+                required
+                #replyContent="ngModel"
+              />
+              <div class="alert-danger" *ngIf="replyContent.errors && f.submitted">
+                <div *ngIf="replyContent.errors.required">Reactie is verplicht</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <button class="btn btn-primary btn-block">Reageer</button>
+            </div>
+      
+            <div class="alert alert-warning" *ngIf="f.submitted && isFoutGegaan">
+              Er is iets fout gegaan!<br />{{ errorMessage }}
+            </div>
+          </form>
+      
+          <div class="alert alert-success" *ngIf="isSuccessful">
+            De post is succesvol gewijzigd!
+          </div>
+        </div>
+      </div>
+</div>

@@ -7,11 +7,12 @@ import { FormsModule } from '@angular/forms';
 import { GroupAddPostComponent } from './group-add-post/group-add-post.component';
 import { GroupGetPostsComponent } from './group-get-posts/group-get-posts.component';
 import { GroupEditPostComponent } from './group-edit-post/group-edit-post.component';
+import { GroupAddReplyPostComponent } from './group-add-reply-post/group-add-reply-post.component';
 
 
 
 @NgModule({
-  declarations: [GroupsComponent, GroupAddComponent, GroupAddPostComponent, GroupGetPostsComponent, GroupEditPostComponent],
+  declarations: [GroupsComponent, GroupAddComponent, GroupAddPostComponent, GroupGetPostsComponent, GroupEditPostComponent, GroupAddReplyPostComponent],
   imports: [
     CommonModule, FormsModule
   ],
