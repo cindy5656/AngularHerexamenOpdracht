@@ -11,6 +11,7 @@ import { GroupAddComponent } from './groups/group-add/group-add.component';
 import { GroupEditPostComponent } from './groups/group-edit-post/group-edit-post.component';
 import { GroupAddReplyPostComponent } from './groups/group-add-reply-post/group-add-reply-post.component';
 import { AuthGuard } from './_guards/auth.guard';
+import { CompanyAddRoleToUserComponent } from './companies/company-add-role-to-user/company-add-role-to-user.component';
 
 
 const routes: Routes = [
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'company', component: CompaniesComponent, canActivate: [AuthGuard] },
   { path: 'company/:id', component: CompanyEditComponent, canActivate: [AuthGuard] },
   { path: 'company/userAdd/:id', component: CompanyUserAddComponent, canActivate: [AuthGuard] },  
+  { path: 'company/roleAdd/:id/:companyID', component: CompanyAddRoleToUserComponent, canActivate: [AuthGuard] }, 
   { path: 'group/:id', component: GroupsComponent, canActivate: [AuthGuard] },
   { path: 'group/add/:id', component: GroupAddComponent, canActivate: [AuthGuard] },
   { path: 'group/edit-post/:id', component: GroupEditPostComponent, canActivate: [AuthGuard] },

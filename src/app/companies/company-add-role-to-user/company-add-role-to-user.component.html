@@ -1,0 +1,10 @@
+<h2 class="text-center">{{this.realDataUser["firstName"]}} {{this.realDataUser["lastName"]}}</h2>
+
+<div *ngFor="let role of this.realData">
+    <p>{{role.name}}
+        <button (click)="BeheerderWegnemen(this.companyID, this.userID)" *ngIf="role.name == 'Beheerder'">Neem beheerder rechten af</button>
+    </p>
+</div>
+<div *ngIf="!this.isBeheerder">
+        <button (click)="BeheerderToekennen(this.companyID, this.userID)" >Geef beheerder rechten</button>
+</div>

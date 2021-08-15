@@ -21,6 +21,7 @@ import { CompanyEditComponent } from './companies/company-edit/company-edit.comp
 import {NgxImageCompressService} from 'ngx-image-compress';
 import { CompanyUserAddComponent } from './companies/company-user-add/company-user-add.component';
 import { AuthGuard } from './_guards/auth.guard';
+import { CompanyAddRoleToUserComponent } from './companies/company-add-role-to-user/company-add-role-to-user.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { AuthGuard } from './_guards/auth.guard';
     ProfileComponent,
     CompaniesComponent,
     CompanyEditComponent,
-    CompanyUserAddComponent
+    CompanyUserAddComponent,
+    CompanyAddRoleToUserComponent
 
   ],
   imports: [

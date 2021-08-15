@@ -99,6 +99,7 @@
               <th>Voornaam</th>
               <th>Achternaam</th>
               <th>Foto</th>
+              <th>Wijzig rechten</th>
             </tr>
           </thead>
           <tbody>
@@ -107,6 +108,7 @@
               <td>{{data.lastName}}</td>
               <td> <img [src]="data.fotoURL ? data.fotoURL : 'https://www.w3schools.com/howto/img_avatar.png'" height="100px">
               </td>
+              <td><a href="/company/roleAdd/{{data.userID}}/{{this.companyID}}">{{data.userID}}</a></td>
             </tr>
           </tbody>
         </table>

@@ -73,7 +73,7 @@ export class CompanyUserAddComponent implements OnInit {
   onSelect(userID) {
     console.log(this.companyID);
     console.log(userID);
-    this.companyService.AddUserToCompany(this.companyID, userID, 4, null).subscribe(
+    this.companyService.AddUserToCompany(this.companyID, userID, 4, 0).subscribe(
       data => {
         this.isToegevoegd = true;
         this.isGevonden = true;

@@ -13,6 +13,9 @@ export class UserService {
   getUserByName(firstName, lastName): Observable<any> {
     return this.http.get(API_URL + '/byName?firstName=' + firstName + '&lastName=' + lastName, { responseType: 'text' });
   }
+  getUser(userID: number): Observable<any> {
+    return this.http.get(API_URL + '/' + userID, { responseType: 'text' });
+  }
 
   getUserBoard(): Observable<any> {
     return this.http.get(API_URL + 'user', { responseType: 'text' });

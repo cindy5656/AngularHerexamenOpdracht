@@ -37,6 +37,7 @@ export class CompaniesComponent implements OnInit {
   echteData: any;
   echteDataGroep: any;
   isGroepen: boolean = null;
+  isBeheerder: boolean = null;
   
 
 
@@ -137,8 +138,12 @@ export class CompaniesComponent implements OnInit {
         this.isFoutGegaan = true;
         this.errorMessage = err.error.message;
       }
-    );
-    
+    ); 
+    async function BeheerderChecken(companyID, userID) {
+      var check = await this.companyService.GetBeheerdersRechtenFromUserID(companyID, userID).toPromise();
+      console.log(check);
+    }
+     
   }
 
   onSubmit(): void {
@@ -155,6 +160,7 @@ export class CompaniesComponent implements OnInit {
       }
     );
   }
+
   reloadPage() {
   }
 

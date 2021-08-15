@@ -48,6 +48,9 @@ export class CompanyService implements OnInit{
   AddUserToCompany(companyID: number, userID: number, roleID: number, groupID: number): Observable<any> {
     return this.http.post(AUTH_API + '/User?companyID=' + companyID + '&userID=' + userID + '&roleID=' + roleID  + '&groupID=' + groupID, {}, httpOptions);
   }
+  RolWegnemen(companyID: number, userID: number, roleID: number, groupID: number): Observable<any> {
+    return this.http.delete(AUTH_API + '/RolWegnemen?companyID=' + companyID + '&userID=' + userID + '&roleID=' + roleID  + '&groupID=' + groupID, {});
+  }
 
   checkManager(companyManagerID: number): Observable<any> {
     return this.http.get(AUTH_API + '/User/' + companyManagerID, { responseType: 'text' });
@@ -66,5 +69,8 @@ export class CompanyService implements OnInit{
   }
   GetCompanyFromGroup(groupID: number): Observable<any> {
     return this.http.get(AUTH_API + '/GetCompanyFromGroup/' + groupID , { responseType: 'text' });
+  }
+  GetBeheerdersRechtenFromUserID(companyID: number, userID: number): Observable<any> {
+    return this.http.get(AUTH_API + '/GetBeheerdersRechtenFromUserID?companyID=' + companyID + '&userID=' + userID , { responseType: 'text' });
   }
 }
