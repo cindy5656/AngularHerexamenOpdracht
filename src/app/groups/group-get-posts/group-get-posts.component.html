@@ -19,9 +19,9 @@
           <td>{{data.subject}}</td>
           <td> <img [src]="data.fotoURL ? data.fotoURL : 'https://www.w3schools.com/howto/img_avatar.png'" height="100px">
           </td>
-          <td *ngIf="this.isPostByUser">    <a href="/group/edit-post/{{data.postID}}" class="button btn-block">Wijzig {{data.postID}}</a>
+          <td *ngIf="this.isPostByUser">    <a href="/group/edit-post/{{data.postID}}" class="button btn-block">Wijzig </a>
           </td>
-          <td *ngIf="this.isPostByUser"><button (click)="deletePost(data.postID)">  Verwijder {{data.postID}} </button>
+          <td *ngIf="this.isPostByUser"><button (click)="deletePost(data.postID)">  Verwijder </button>
           </td>
           <td *ngIf="!this.isPostByUser">
             <button [disabled]="this.isGeliked? true : null" type="button" class="btn btn-sm btn-success"><i class="fas fa-thumbs-up" (click)="incrementLikes(data.postID, data)">{{data.aantalLikes}}</i></button>  

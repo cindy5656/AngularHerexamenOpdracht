@@ -88,7 +88,7 @@
     <p>Omschrijving: {{this.description}}</p>
     <p>Locatie: {{this.location}}</p>
     <p>Manager: {{this.companyManager}}</p>
-    <a href="/company/{{this.companyID}}" class="button btn-block">Klik hier om dit bedrijf te wijzigen {{this.companyID}}</a>
+    <a href="/company/{{this.companyID}}" class="button btn-block">Klik hier om {{this.nameCompany}} te wijzigen </a>
     <a href="/company/userAdd/{{this.companyID}}" class="button btn-block">Klik hier om personen toe te voegen aan dit bedrijf</a>
     <div *ngIf="this.isWerknemers" class="text-center">
       <h2>Werknemers</h2>
@@ -108,7 +108,7 @@
               <td>{{data.lastName}}</td>
               <td> <img [src]="data.fotoURL ? data.fotoURL : 'https://www.w3schools.com/howto/img_avatar.png'" height="100px">
               </td>
-              <td><a href="/company/roleAdd/{{data.userID}}/{{this.companyID}}">{{data.userID}}</a></td>
+              <td><a href="/company/roleAdd/{{data.userID}}/{{this.companyID}}">Wijzig</a></td>
             </tr>
           </tbody>
         </table>
@@ -132,7 +132,7 @@
               <td>{{dataGroep.nameGroup}}</td>
               <td> <img [src]="dataGroep.fotoURL ? dataGroep.fotoURL : 'https://www.w3schools.com/howto/img_avatar.png'" height="100px">
               </td>
-              <td>    <a href="/group/{{dataGroep.groupID}}" class="button btn-block">Klik hier om naar deze groep te gaan {{dataGroep.groupID}}</a>
+              <td>    <a href="/group/{{dataGroep.groupID}}" class="button btn-block">Klik hier om naar deze groep te gaan: {{dataGroep.nameGroup}}</a>
               </td>
             </tr>
           </tbody>
