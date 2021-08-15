@@ -23,7 +23,7 @@
           </td>
           <td *ngIf="this.isPostByUser"><button (click)="deletePost(data.postID)">  Verwijder </button>
           </td>
-          <td *ngIf="!this.isPostByUser">
+          <td *ngIf="this.isPostByUser">
             <button [disabled]="this.isGeliked? true : null" type="button" class="btn btn-sm btn-success"><i class="fas fa-thumbs-up" (click)="incrementLikes(data.postID, data)">{{data.aantalLikes}}</i></button>  
             <button [disabled]="this.isDisliked? true : null" type="button" class="btn btn-sm btn-danger"><i class="fas fa-thumbs-down" (click)="incrementDislikes(data.postID, data)">{{data.aantalDislikes}}</i></button>  
           </td>
