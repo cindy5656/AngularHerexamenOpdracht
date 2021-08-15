@@ -21,6 +21,9 @@ export class PostService implements OnInit{
   GetPostsByUser(userID: number): Observable<any> {
     return this.http.get(AUTH_API + '/GetPostsByUser/' + userID , httpOptions);
   }
+  GetPostsByGroup(groupID: number): Observable<any> {
+    return this.http.get(AUTH_API + '/GetPostsByGroup/' + groupID , httpOptions);
+  }
   GetPostByID(postID: number): Observable<any> {
     return this.http.get(AUTH_API + '/' + postID , httpOptions);
   }

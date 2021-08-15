@@ -17,6 +17,7 @@ export class GroupGetPostsComponent implements OnInit {
   echteData: any;
   isFoutGegaan: boolean;
   errorMessage: any;
+  groupID: any;
 
   constructor(private companyService: CompanyService, 
     private token: TokenStorageService, 
@@ -26,12 +27,21 @@ export class GroupGetPostsComponent implements OnInit {
     private postService: PostService) { }
 
   ngOnInit(): void {
+    this.groupID = this.route.snapshot.paramMap.get("id");
     this.currentUser = this.token.getUser();
+    this.postService.GetPostsByGroup(this.groupID).subscribe(
+      data => {
+        this.echteData = JSON.parse(JSON.stringify(data));
+        console.log('get posts', this.echteData);
+      },
+      err => {
+        this.isFoutGegaan = true;
+        this.errorMessage = err.error.message;
+      }
+    );
     this.postService.GetPostsByUser(this.currentUser.userID).subscribe(
       data => {
         this.isPostByUser = true;
-        this.echteData = JSON.parse(JSON.stringify(data));
-        console.log('get posts', this.echteData);
       },
       err => {
         this.isPostByUser = false;
